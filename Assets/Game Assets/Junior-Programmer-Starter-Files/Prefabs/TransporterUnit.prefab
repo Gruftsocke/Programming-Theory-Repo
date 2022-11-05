@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &1808103711783730709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 363412466176835124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42691e03fb73de54090e4be70c173690, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TintRenderer: {fileID: 4382268677074299818}
-  TintMaterialSlot: 1
 --- !u!1 &8974776837463427705
 GameObject:
   m_ObjectHideFlags: 0
@@ -24,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8974776837463427655}
   - component: {fileID: 8974776837463427654}
-  - component: {fileID: 8974776837463427652}
   - component: {fileID: 2784629468953435207}
   m_Layer: 0
   m_Name: TransporterUnit
@@ -43,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8864903238512824247}
   m_Father: {fileID: 0}
@@ -70,20 +56,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8974776837463427652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8974776837463427705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10dce3fc2d9cb4440bf8047367db35c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 5
-  MaxAmountTransported: 1
 --- !u!65 &2784629468953435207
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -157,15 +129,5 @@ PrefabInstance:
 --- !u!4 &8864903238512824247 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dea5c46ca71356b4f982a5963079ed96, type: 3}
-  m_PrefabInstance: {fileID: 8974776836759824476}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &363412466176835124 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8757203630472435304, guid: dea5c46ca71356b4f982a5963079ed96, type: 3}
-  m_PrefabInstance: {fileID: 8974776836759824476}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &4382268677074299818 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -4585722291741228042, guid: dea5c46ca71356b4f982a5963079ed96, type: 3}
   m_PrefabInstance: {fileID: 8974776836759824476}
   m_PrefabAsset: {fileID: 0}
