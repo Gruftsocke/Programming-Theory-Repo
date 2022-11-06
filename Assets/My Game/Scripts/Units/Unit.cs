@@ -56,9 +56,16 @@ namespace SchnabelSoftware.MyGame.Units
             agent.speed = speed;
             agent.acceleration = 999f;
             agent.angularSpeed = 999f;
+            //agent.updatePosition = false;
+            //agent.updateRotation = false;
         }
 
         protected virtual void Update()
+        {
+            HandleTargetWaypoints();
+        }
+
+        protected virtual void HandleTargetWaypoints()
         {
             if (target && !stopAction)
             {
@@ -77,7 +84,6 @@ namespace SchnabelSoftware.MyGame.Units
                         {
                             agent.isStopped = true;
                             isFinished = true;
-                            
                         }
                     }
                 }
