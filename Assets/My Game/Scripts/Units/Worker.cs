@@ -15,6 +15,7 @@
  *
  * © Copyright by Schnabel-Software 2009-2022
  */
+using SchnabelSoftware.MyGame.Buildings;
 using UnityEngine;
 
 namespace SchnabelSoftware.MyGame.Units
@@ -34,7 +35,8 @@ namespace SchnabelSoftware.MyGame.Units
 		protected override void Update()
 		{
 			base.Update();
-			if (agent.hasPath)
+
+			if (agent.hasPath && !agent.isStopped && !stopAction)
 			{
 				if (!isWalking)
 				{
@@ -51,5 +53,40 @@ namespace SchnabelSoftware.MyGame.Units
 				}
 			}
 		}
-	}
+
+		protected override void BuildingInRange()
+		{
+			if (currentTask != null)
+			{
+				if (target == currentTask.retrieveFrom)
+				{
+					Instantiate(target.Item.prefab, equipSlot);
+					GoTo(currentTask.deliverTo);
+				}
+				else if (target == currentTask.deliverTo)
+                {
+                    target.AddItem(currentTask.retrieveFrom.Item);
+					if (equipSlot.childCount > 0)
+						Destroy(equipSlot.GetChild(0).gameObject);
+
+                    GoTo(currentTask.retrieveFrom);
+                }
+			}
+		}
+
+		public override void GoTo(Building building)
+		{
+			if (stopAction)
+				return;
+
+			base.GoTo(building);
+		}
+
+        public override void StopAction()
+        {
+			base.StopAction();
+            isWalking = false;
+            animator.SetFloat(speedHash, 0f);
+        }
+    }
 }

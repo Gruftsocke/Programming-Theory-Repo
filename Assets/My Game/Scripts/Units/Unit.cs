@@ -16,29 +16,39 @@
  * © Copyright by Schnabel-Software 2009-2022
  */
 using SchnabelSoftware.MyGame.Buildings;
+using SchnabelSoftware.MyGame.Managers;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace SchnabelSoftware.MyGame.Units
 {
     /// <summary>
-	/// This is the bass class for all unit objects.
+	/// This is the base class for all unit objects.
 	/// </summary>
 	[RequireComponent(typeof(NavMeshAgent))]
     public abstract class Unit : MonoBehaviour
 	{
         [Header("Unit Properties")]
-        [SerializeField] private Transform symbolPoint = null;
+        [SerializeField] protected Transform symbolPoint = null;
+        [SerializeField] protected Transform equipSlot = null;
+        [SerializeField] protected UnitType unitType = default;
 
         [Header("Agent Properties")]
-        [SerializeField] private float speed = 3.6f;
+        [SerializeField] protected float speed = 3.6f;
 
         protected NavMeshAgent agent = null;
         protected Building target = null;
         protected int waypointCount = 0;
         protected int currentWaypointIndex = 0;
         protected bool isFinished = false;
+        protected bool stopAction = false;
+        protected bool loopAction = false;
         protected Vector3 currentTargetPos = default;
+        protected Managers.Task currentTask = null;
+
+        public UnitType UnitType => unitType;
+        public int UnitMask => 1 << (int)unitType;
+        public bool IsFree { get; protected set; } = true;
 
         protected virtual void Awake()
         {
@@ -50,34 +60,46 @@ namespace SchnabelSoftware.MyGame.Units
 
         protected virtual void Update()
         {
-            if (target && !isFinished)
+            if (target && !stopAction)
             {
-                float distance = Vector3.Distance(currentTargetPos, transform.position - (Vector3.up * agent.baseOffset));
-                if (distance < target.StopDistance)
+                if (!isFinished)
                 {
-                    currentWaypointIndex++;
-                    if (currentWaypointIndex < waypointCount)
+                    float distance = Vector3.Distance(currentTargetPos, transform.position - (Vector3.up * agent.baseOffset));
+                    if (distance < target.StopDistance)
                     {
-                        currentTargetPos = target.GetWaypoints()[currentWaypointIndex];
-                        agent.SetDestination(currentTargetPos);
+                        currentWaypointIndex++;
+                        if (currentWaypointIndex < waypointCount)
+                        {
+                            currentTargetPos = target.GetWaypoints()[currentWaypointIndex];
+                            agent.SetDestination(currentTargetPos);
+                        }
+                        else
+                        {
+                            agent.isStopped = true;
+                            isFinished = true;
+                            
+                        }
                     }
-                    else
-                    {
-                        agent.isStopped = true;
-                        isFinished = true;
-                        //BuildingInRange();
-                    }
+                }
+                else
+                {
+                    BuildingInRange();
                 }
             }
         }
 
         public virtual void GoTo(Vector3 worldPosition)
         {
+            if (target)
+                target.IsFree = true;
+
             target = null;
             waypointCount = 0;
             currentWaypointIndex = 0;
             isFinished = false;
+            stopAction = false;
             currentTargetPos = default;
+            SetTask(null);
 
             agent.SetDestination(worldPosition);
             agent.isStopped = false;
@@ -88,10 +110,15 @@ namespace SchnabelSoftware.MyGame.Units
             if (target == building && isFinished)
                 return;
 
+            if (target)
+                target.IsFree = true;
+
             target = building;
             if (target)
             {
+                target.IsFree = false;
                 isFinished = false;
+                //stopAction = false;
                 waypointCount = target.GetWaypoints().Length;
                 currentWaypointIndex = 0;
 
@@ -111,6 +138,54 @@ namespace SchnabelSoftware.MyGame.Units
             symbol.transform.localPosition = Vector3.zero;
             symbol.transform.localScale = Vector3.one;
             symbol.SetActive(true);
+        }
+
+        protected abstract void BuildingInRange();
+
+        protected void RemoveCurrentTaskAndEquipItem()
+        {
+            if (equipSlot.childCount > 0)
+                Destroy(equipSlot.GetChild(0).gameObject);
+
+            if (currentTask != null)
+            {
+                currentTask.retrieveFrom?.RemoveUnit(this);
+                currentTask.deliverTo?.RemoveUnit(this);
+                currentTask = null;
+            }
+
+            IsFree = true;
+        }
+
+        public virtual void SetTask(Building building)
+        {
+            RemoveCurrentTaskAndEquipItem();
+
+            if (building)
+            {
+                currentTask = TaskManager.Current.GetTask(building);
+
+                if (currentTask != null)
+                {
+                    currentTask.retrieveFrom.AddUnit(this);
+                    currentTask.deliverTo.AddUnit(this);
+                }
+            }
+            
+            IsFree = currentTask == null;
+        }
+
+        public virtual void StopAction()
+        {
+            agent.isStopped = true;
+            stopAction = true;
+        }
+
+        public virtual void StartAction()
+        {
+            if (!isFinished)
+                agent.isStopped = false;
+            stopAction = false;
         }
     }
 }

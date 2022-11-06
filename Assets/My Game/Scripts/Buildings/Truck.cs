@@ -1,7 +1,7 @@
 /*********************************************************
- * Filename: ParkingArea.cs
+ * Filename: Truck.cs
  * Project : SchnabelSoftware.MyGame
- * Date    : 04.11.2022
+ * Date    : 05.11.2022
  *
  * Author  : Daniel Schnabel
  * E-Mail  : info@schnabel-software.de
@@ -17,10 +17,10 @@
  */
 namespace SchnabelSoftware.MyGame.Buildings
 {
-    /// <summary>
+	/// <summary>
 	/// 
 	/// </summary>
-	public class ParkingArea : Building
+	public class Truck : Building
 	{
 
 	}

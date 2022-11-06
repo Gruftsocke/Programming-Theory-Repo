@@ -39,7 +39,7 @@ namespace SchnabelSoftware.MyGame.Controllers
 			{
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-				if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, unitLayerMask, QueryTriggerInteraction.Ignore))
+				if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, unitLayerMask))//, QueryTriggerInteraction.Ignore))
 				{
 					if (hit.collider.TryGetComponent(out Unit unit))
 					{
@@ -63,6 +63,7 @@ namespace SchnabelSoftware.MyGame.Controllers
                 {
 					if (hit.collider.TryGetComponent(out Building building))
 					{
+						selectedUnit.SetTask(building);
 						selectedUnit.GoTo(building);
 					}
 					else

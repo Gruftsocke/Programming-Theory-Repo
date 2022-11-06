@@ -222,6 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopDistance: 0.1
-  alignmentPoint:
+  item: {fileID: 0}
+  points:
   - {fileID: 7026693941286489903}
   - {fileID: 3934167521215726478}

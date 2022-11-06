@@ -1,7 +1,7 @@
 /*********************************************************
- * Filename: ParkingArea.cs
+ * Filename: UnitType.cs
  * Project : SchnabelSoftware.MyGame
- * Date    : 04.11.2022
+ * Date    : 05.11.2022
  *
  * Author  : Daniel Schnabel
  * E-Mail  : info@schnabel-software.de
@@ -15,13 +15,24 @@
  *
  * © Copyright by Schnabel-Software 2009-2022
  */
-namespace SchnabelSoftware.MyGame.Buildings
+using System;
+
+namespace SchnabelSoftware.MyGame.Units
 {
     /// <summary>
-	/// 
-	/// </summary>
-	public class ParkingArea : Building
-	{
+    /// 
+    /// </summary>
+    [Flags]
+    public enum UnitMask
+    {
+        None = 0,
+        Worker = 1,
+        Forklift = 2
+    }
 
-	}
+    public enum UnitType
+    {
+        Worker,
+        Forklift
+    }
 }

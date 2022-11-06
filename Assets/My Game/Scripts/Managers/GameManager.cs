@@ -1,7 +1,7 @@
 /*********************************************************
- * Filename: ParkingArea.cs
+ * Filename: GameManager.cs
  * Project : SchnabelSoftware.MyGame
- * Date    : 04.11.2022
+ * Date    : 05.11.2022
  *
  * Author  : Daniel Schnabel
  * E-Mail  : info@schnabel-software.de
@@ -15,13 +15,27 @@
  *
  * © Copyright by Schnabel-Software 2009-2022
  */
-namespace SchnabelSoftware.MyGame.Buildings
+using UnityEngine;
+
+namespace SchnabelSoftware.MyGame.Managers
 {
     /// <summary>
 	/// 
 	/// </summary>
-	public class ParkingArea : Building
+	public class GameManager : MonoBehaviour
 	{
+		public static GameManager Current { get; private set; }
 
-	}
+		private void Awake()
+		{
+			if (Current)
+			{
+				Destroy(gameObject);
+				return;
+			}
+
+			Current = this;
+            // DontDestroyOnLoad(gameObject); // <<< for later
+        }
+    }
 }
