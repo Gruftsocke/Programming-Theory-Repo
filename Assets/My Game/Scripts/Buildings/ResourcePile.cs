@@ -34,7 +34,7 @@ namespace SchnabelSoftware.MyGame.Buildings
         private int itemCount = 0;
 		private int maxItemCount = 0;
 
-		protected override void Awake()
+        protected override void Awake()
 		{
 			// Initalize waypoints...
 			base.Awake();

@@ -19,14 +19,14 @@ using SchnabelSoftware.MyGame.ScriptableObjects;
 using SchnabelSoftware.MyGame.Units;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace SchnabelSoftware.MyGame.Buildings
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public abstract class Building : MonoBehaviour
+    /// <summary>
+    /// This class is the basis for all classes, with which the units can interact.
+	/// e.g: LoadingZone, ParkingArea, Truck and ResoursePile
+    /// </summary>
+    public abstract class Building : MonoBehaviour
 	{
 		[Header("Building Properties")]
 		[SerializeField] protected float stopDistance = .15f;
@@ -65,6 +65,8 @@ namespace SchnabelSoftware.MyGame.Buildings
                 units.Remove(unit);
         }
 
+		public virtual bool IsUnitInList(Unit unit) => units.Contains(unit);
+
 		public virtual ItemDataSO GetItemAt(UnitType unitType)
 		{
 			if (item != null)
@@ -78,7 +80,9 @@ namespace SchnabelSoftware.MyGame.Buildings
 
 		public virtual void LoadItem(Unit unit, Transform equipPoint)
 		{
-
+			/* When you need this method,
+			 * you can override it in the child class 
+			 * and write your code in it. */
 		}
 
 		protected static bool HasFlags(UnitMask mask, UnitType unitType)

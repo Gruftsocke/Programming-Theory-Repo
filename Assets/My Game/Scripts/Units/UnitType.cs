@@ -20,7 +20,8 @@ using System;
 namespace SchnabelSoftware.MyGame.Units
 {
     /// <summary>
-    /// 
+    /// These flags are used by ItemDataSO and indicate who can grab an item.
+    /// This is checked in the building class with the HasFlag method.
     /// </summary>
     [Flags]
     public enum UnitMask
@@ -29,7 +30,9 @@ namespace SchnabelSoftware.MyGame.Units
         Worker = 1,
         Forklift = 2
     }
-
+    /// <summary>
+    /// These two types represent the unit type.
+    /// </summary>
     public enum UnitType
     {
         Worker,

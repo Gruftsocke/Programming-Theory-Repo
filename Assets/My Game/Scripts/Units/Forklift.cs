@@ -15,7 +15,7 @@
  *
  * © Copyright by Schnabel-Software 2009-2022
  */
-using SchnabelSoftware.MyGame.Buildings;
+using SchnabelSoftware.MyGame.Core;
 using SchnabelSoftware.MyGame.Managers;
 using UnityEngine;
 
@@ -26,14 +26,21 @@ namespace SchnabelSoftware.MyGame.Units
 	/// </summary>
 	public class Forklift : Unit
 	{
-		protected override void BuildingInRange()
+        [SerializeField] private RotationLight rotationLight = null;
+
+        protected override void Update()
+        {
+            HandleTargetWaypoints();
+
+            rotationLight.Enabled = agent.hasPath;
+        }
+
+        protected override void BuildingInRange()
 		{
             if (currentTask != null)
             {
                 if (target == currentTask.retrieveFrom)
                 {
-                    //Instantiate(target.Item.prefab, equipSlot);
-                    //GoTo(currentTask.deliverTo);
                     currentTask.retrieveFrom.LoadItem(this, equipSlot);
                     GoTo(currentTask.deliverTo);
                 }

@@ -92,6 +92,8 @@ namespace SchnabelSoftware.MyGame.Units
                     BuildingInRange();
                 }
             }
+
+            IsFree = !agent.hasPath;
         }
 
         public virtual void GoTo(Vector3 worldPosition)
@@ -109,6 +111,8 @@ namespace SchnabelSoftware.MyGame.Units
 
             agent.SetDestination(worldPosition);
             agent.isStopped = false;
+
+            IsFree = false;
         }
 
         public virtual void GoTo(Building building)
@@ -134,7 +138,9 @@ namespace SchnabelSoftware.MyGame.Units
                     currentTargetPos = target.GetPosition();
 
                 agent.SetDestination(currentTargetPos);
-                agent.isStopped = false;
+                agent.isStopped = stopAction;
+
+                IsFree = false;
             }
         }
 
@@ -159,8 +165,6 @@ namespace SchnabelSoftware.MyGame.Units
                 currentTask.deliverTo?.RemoveUnit(this);
                 currentTask = null;
             }
-
-            IsFree = true;
         }
 
         public virtual void SetTask(Building building)
@@ -177,8 +181,6 @@ namespace SchnabelSoftware.MyGame.Units
                     currentTask.deliverTo.AddUnit(this);
                 }
             }
-            
-            IsFree = currentTask == null;
         }
 
         public virtual void StopAction()
@@ -191,6 +193,7 @@ namespace SchnabelSoftware.MyGame.Units
         {
             if (!isFinished)
                 agent.isStopped = false;
+
             stopAction = false;
         }
     }

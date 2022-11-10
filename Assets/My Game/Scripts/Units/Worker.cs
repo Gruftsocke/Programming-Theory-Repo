@@ -15,9 +15,7 @@
  *
  * © Copyright by Schnabel-Software 2009-2022
  */
-using SchnabelSoftware.MyGame.Buildings;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace SchnabelSoftware.MyGame.Units
 {
@@ -29,26 +27,11 @@ namespace SchnabelSoftware.MyGame.Units
 		[Header("Worker Properties")]
 		[SerializeField] private Animator animator = null;
 
-		private Rigidbody rigid = null;
 		private bool isWalking = false;
-
-		// Root motion with nav mesh agent
-		//private float direction = 0f;
 		private float currentSpeed = 0f;
 
 		private readonly int speedHash = Animator.StringToHash("Speed");
-        //private readonly int directionHash = Animator.StringToHash("Direction");
         private readonly int actionIdHash = Animator.StringToHash("Action ID");
-
-        protected override void Awake()
-		{
-			rigid = GetComponent<Rigidbody>();
-			agent = GetComponent<NavMeshAgent>();
-
-			agent.speed = speed;
-            agent.acceleration = 999f;
-            agent.angularSpeed = 9999f;
-        }
 
 		void OnAnimatorMove()
 		{
@@ -60,23 +43,13 @@ namespace SchnabelSoftware.MyGame.Units
 		{
 			HandleTargetWaypoints();
 
-			//direction = Vector3.Angle(transform.forward, agent.desiredVelocity) *
-			//	        Mathf.Sign(Vector3.Dot(agent.desiredVelocity, transform.right));
-
 			if (target && !stopAction)
 			{
 				currentSpeed = agent.desiredVelocity.magnitude;
-
-				//animator.SetFloat(directionHash, direction, .2f, Time.deltaTime);
 				animator.SetFloat(speedHash, currentSpeed, .2f, Time.deltaTime);
-
 				agent.nextPosition = transform.position;
 			}
-			//transform.rotation = Quaternion.Euler(Vector3.up * direction);
 
-            /*
-			base.Update();
-*/
 			if (agent.hasPath && !agent.isStopped && !stopAction)
 			{
 				if (!isWalking)
@@ -95,8 +68,6 @@ namespace SchnabelSoftware.MyGame.Units
 			}
 			
         }
-
-
 
         protected override void BuildingInRange()
 		{
@@ -126,14 +97,6 @@ namespace SchnabelSoftware.MyGame.Units
             animator.SetInteger(actionIdHash, 0);
             base.GoTo(worldPosition);
 		}
-
-		//public override void GoTo(Building building)
-		//{
-		//	if (stopAction)
-		//		return;
-
-		//	base.GoTo(building);
-		//}
 
 		public override void StopAction()
         {

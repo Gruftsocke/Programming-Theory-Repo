@@ -16,7 +16,6 @@
  * © Copyright by Schnabel-Software 2009-2022
  */
 using SchnabelSoftware.MyGame.Units;
-using System;
 using UnityEngine;
 
 namespace SchnabelSoftware.MyGame.ScriptableObjects

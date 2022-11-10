@@ -183,6 +183,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4403177957545780589, guid: 9ffa86abf960db743a299d0b2f43c957, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6150688364565764090, guid: 9ffa86abf960db743a299d0b2f43c957, type: 3}
       propertyPath: m_Name
       value: Forklift
@@ -230,6 +234,10 @@ PrefabInstance:
     - target: {fileID: 6778043703926869312, guid: 9ffa86abf960db743a299d0b2f43c957, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072857706757029310, guid: 9ffa86abf960db743a299d0b2f43c957, type: 3}
+      propertyPath: m_Radius
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ffa86abf960db743a299d0b2f43c957, type: 3}
@@ -479,6 +487,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6565456027418946385, guid: b5340b3e3802fd44bb7a14b438913d46, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565456027418946386, guid: b5340b3e3802fd44bb7a14b438913d46, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6565456027418946399, guid: b5340b3e3802fd44bb7a14b438913d46, type: 3}
@@ -1256,6 +1268,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6565456027418946386, guid: b5340b3e3802fd44bb7a14b438913d46, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565456027418946397, guid: b5340b3e3802fd44bb7a14b438913d46, type: 3}
+      propertyPath: m_Radius
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 6565456027418946399, guid: b5340b3e3802fd44bb7a14b438913d46, type: 3}
       propertyPath: m_Name
       value: Worker (3)
@@ -1482,6 +1502,14 @@ PrefabInstance:
     - target: {fileID: 6565456027418946385, guid: b5340b3e3802fd44bb7a14b438913d46, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565456027418946386, guid: b5340b3e3802fd44bb7a14b438913d46, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565456027418946397, guid: b5340b3e3802fd44bb7a14b438913d46, type: 3}
+      propertyPath: m_Radius
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6565456027418946399, guid: b5340b3e3802fd44bb7a14b438913d46, type: 3}
       propertyPath: m_Name
